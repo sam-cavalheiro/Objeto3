@@ -8,7 +8,8 @@ public class Principal {
 		
 		int numeroGrilos = 5;
 		while(numeroGrilos > 0) {
-			new Grilo("Grilo_" + numeroGrilos);
+			Thread t = new Thread(new Grilo("Grilo_" + numeroGrilos));
+			t.start();
 			numeroGrilos --;
 		}
 		

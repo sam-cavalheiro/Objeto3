@@ -15,12 +15,12 @@ public class Grilo implements Runnable {
     //private int Principal.CHEGADA = 10;
     //boolean chegada = false;
     
-    private Thread thread;
+    //private Thread thread;
 
     public Grilo(String nomeGrilo) {
     	this.nomeGrilo = nomeGrilo;
-    	thread = new Thread(this, nomeGrilo);
-    	thread.start();
+    	/*thread = new Thread(this, nomeGrilo);
+    	thread.start();*/
     }
     
     public void pula() 
@@ -35,7 +35,7 @@ public class Grilo implements Runnable {
         else
         {
         	// redefinir contador
-        	thread.run();
+        	//thread.run();
         }
     }
 

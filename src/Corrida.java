@@ -8,6 +8,10 @@ public class Corrida {
 	public Corrida() {
 		vencedores = new Grilo[NUMERO_GRILOS];
 		
+		semaforo = new Semaforo();
+		Thread t = new Thread(semaforo);
+		t.start();
+		
 		for (int i = 0; i < NUMERO_GRILOS; i++) {
 			new Grilo("Grilo_" + i, this);
 		}

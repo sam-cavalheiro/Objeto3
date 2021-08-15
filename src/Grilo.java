@@ -29,11 +29,10 @@ public class Grilo implements Runnable {
     
     public void pula() 
     { 	
-    	if (!corrida.getSemaforo().isFair()) {
-    		System.out.println("NÃO VAI CORRER NÃO");
-    		return;
+    	while (!corrida.getSemaforo().podeCorrer()) {
+    		// Loop infinito
     	}
-    	
+
         totalPulo +=1;
         caminhoPercorrido = caminhoPercorrido+tamanhoPulo;
         System.out.println(nomeGrilo + " pulou " + tamanhoPulo + "cm e já percorreu " + caminhoPercorrido + "cm.");

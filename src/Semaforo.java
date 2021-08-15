@@ -4,11 +4,13 @@ public class Semaforo implements Runnable {
 	private static final int TEMPO_DE_ESPERA = 1000;
 	
 	private Semaphore semaphore = new Semaphore(1);
+	private boolean estaContando;
 
 	@Override
 	public void run() {
 		try {
 			semaphore.acquire();
+			estaContando = true;
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -25,6 +27,7 @@ public class Semaforo implements Runnable {
 		System.out.println("INÍCIO DA CORRIDA!\n");
 		
 		semaphore.release();
+		estaContando = false;
 	}
 	
 	private void esperaContagem() {
@@ -35,7 +38,7 @@ public class Semaforo implements Runnable {
 		}
 	}
 	
-	public boolean isFair() {
-		return semaphore.isFair();
+	public boolean podeCorrer() {
+		return !semaphore.hasQueuedThreads() && !estaContando;
 	}
 }

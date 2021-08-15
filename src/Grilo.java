@@ -7,6 +7,8 @@ public class Grilo implements Runnable {
 	private static final int RESETAR_TEMPO_MINIMO = 500;
 	private static final int RESETAR_TEMPO_MAXIMO = 3000;
 	
+	private Corrida corrida;
+	
     private String nomeGrilo;
     private int tamanhoPulo = 1;
     private int totalPulo;
@@ -17,28 +19,41 @@ public class Grilo implements Runnable {
     
     private Thread thread;
 
-    public Grilo(String nomeGrilo) {
+    public Grilo(String nomeGrilo, Corrida corrida) {
     	this.nomeGrilo = nomeGrilo;
+    	this.corrida = corrida;
+    	
     	thread = new Thread(this, nomeGrilo);
     	thread.start();
     }
     
     public void pula() 
-    { 
+    { 	
+    	if (!corrida.getSemaforo().isFair()) {
+    		System.out.println("NÃO VAI CORRER NÃO");
+    		return;
+    	}
+    	
         totalPulo +=1;
         caminhoPercorrido = caminhoPercorrido+tamanhoPulo;
         System.out.println(nomeGrilo + " pulou " + tamanhoPulo + "cm e já percorreu " + caminhoPercorrido + "cm.");
-        if (caminhoPercorrido>=Principal.CHEGADA)
-        {
-            System.out.println(nomeGrilo + " cruzou a linha de chegada com " + totalPulo + " pulos.");
-        }
-        else
-        {
-        	// redefinir contador
+        
+        if (!corrida.tentarCruzarChegada(this))
         	thread.run();
-        }
     }
 
+    public String getNome() {
+    	return nomeGrilo;
+    }
+    
+    public int getTotalPulo() {
+    	return totalPulo;
+    }
+    
+    public int getCaminhoPercorrido() {
+    	return caminhoPercorrido;
+    }
+    
 	@Override
 	public void run() {
     	Random random = new Random();

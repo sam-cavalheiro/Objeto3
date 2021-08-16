@@ -29,18 +29,17 @@ public class Grilo implements Runnable {
     { 	
     	// TODO Corrigir repetição
     	
-    	while (!corrida.getSemaforo().podeCorrer()) {
-    		// Loop infinito
+    	while (corrida.getSemaforo().podeCorrer()) {
+			int tamanhoPulo = TAMANHO_MINIMO_PULO + random.nextInt(TAMANHO_MAXIMO_PULO - TAMANHO_MINIMO_PULO);
+    	
+			totalPulo +=1;
+			caminhoPercorrido = caminhoPercorrido+tamanhoPulo;
+			System.out.println(nomeGrilo + " pulou " + tamanhoPulo + "cm e já percorreu " + caminhoPercorrido + "cm.");
+			
+			if (corrida.tentarCruzarChegada(this))
+				break;		
     	}
 
-    	int tamanhoPulo = TAMANHO_MINIMO_PULO + random.nextInt(TAMANHO_MAXIMO_PULO - TAMANHO_MINIMO_PULO);
-    	
-        totalPulo +=1;
-        caminhoPercorrido = caminhoPercorrido+tamanhoPulo;
-        System.out.println(nomeGrilo + " pulou " + tamanhoPulo + "cm e já percorreu " + caminhoPercorrido + "cm.");
-        
-        if (!corrida.tentarCruzarChegada(this))
-        	pula();
     }
 
     public String getNome() {

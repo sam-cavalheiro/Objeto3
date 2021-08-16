@@ -2,7 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Corrida {
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("This will be printed");
+    }
+}
 	public int chegada;
 	private int numeroGrilos;
 	

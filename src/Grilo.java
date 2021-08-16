@@ -17,18 +17,17 @@ public class Grilo implements Runnable {
     //private int Principal.CHEGADA = 10;
     //boolean chegada = false;
     
-    private Thread thread;
+    //private Thread thread;
 
     public Grilo(String nomeGrilo, Corrida corrida) {
     	this.nomeGrilo = nomeGrilo;
     	this.corrida = corrida;
-    	
-    	thread = new Thread(this, nomeGrilo);
-    	thread.start();
     }
     
     public void pula() 
     { 	
+    	// TODO Corrigir repetição
+    	
     	while (!corrida.getSemaforo().podeCorrer()) {
     		// Loop infinito
     	}
@@ -38,7 +37,7 @@ public class Grilo implements Runnable {
         System.out.println(nomeGrilo + " pulou " + tamanhoPulo + "cm e já percorreu " + caminhoPercorrido + "cm.");
         
         if (!corrida.tentarCruzarChegada(this))
-        	thread.run();
+        	pula();
     }
 
     public String getNome() {

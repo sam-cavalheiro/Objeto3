@@ -33,7 +33,8 @@ public class Corrida {
 		t.start();
 		
 		for (int i = 0; i < numeroGrilos; i++) {
-			new Grilo("Grilo_" + i, this);
+			t = new Thread(new Grilo("Grilo_" + i, this));
+			t.start();
 		}
 	}
 	

@@ -26,7 +26,7 @@ public class Semaforo implements Runnable {
 		esperaContagem();
 		System.out.println("INÍCIO DA CORRIDA!\n");
 		
-		semaphore.release();
+		release();
 		estaContando = false;
 	}
 	
@@ -40,5 +40,13 @@ public class Semaforo implements Runnable {
 	
 	public boolean podeCorrer() {
 		return !semaphore.hasQueuedThreads() && !estaContando;
+	}
+	
+	public boolean tryAcquire() {
+		return semaphore.tryAcquire();
+	}
+	
+	public void release() {
+		semaphore.release();
 	}
 }

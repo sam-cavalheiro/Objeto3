@@ -4,8 +4,8 @@ public class Grilo implements Runnable {
 	private static final int TAMANHO_MINIMO_PULO = 1;
 	private static final int TAMANHO_MAXIMO_PULO = 10;
 	
-	private static final int RESETAR_TEMPO_MINIMO = 500;
-	private static final int RESETAR_TEMPO_MAXIMO = 3000;
+	/*private static final int RESETAR_TEMPO_MINIMO = 500;
+	private static final int RESETAR_TEMPO_MAXIMO = 3000;*/
 	
 	private Corrida corrida;
 	public Time time;
@@ -57,11 +57,11 @@ public class Grilo implements Runnable {
     
 	@Override
 	public void run() {
-    	try {
+    	/*try {
 			Thread.sleep(RESETAR_TEMPO_MINIMO + random.nextInt(RESETAR_TEMPO_MAXIMO - RESETAR_TEMPO_MINIMO));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
     	pula();
 	}
 

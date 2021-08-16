@@ -44,6 +44,10 @@ public class Corrida {
 	
 	public boolean tentarCruzarChegada(Grilo grilo) {
 		if (grilo.getCaminhoPercorrido() >= chegada) {
+			while (!semaforo.tryAcquire()) {
+				// Loop infinito
+			}
+			
 			vencedores.add(grilo);
 			int quantiaVencedores = vencedores.size();
 			
@@ -51,6 +55,8 @@ public class Corrida {
 			
 			if (quantiaVencedores == numeroGrilos)
 				finalizarCorrida();
+			
+			semaforo.release();
 			
 			return true;
 		}

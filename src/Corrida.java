@@ -1,5 +1,5 @@
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Corrida {
@@ -7,8 +7,8 @@ public class Corrida {
 	private int numeroGrilos;
 	
 	private Semaforo semaforo;
-	private List<Time> times = new ArrayList<Time>();
-	private Grilo[] vencedores;
+	private Time[] times;
+	private List<Grilo> vencedores = new ArrayList<Grilo>();
 	
 	public Corrida() {
 		
@@ -17,39 +17,65 @@ public class Corrida {
 		
 		System.out.println("Quantos Grilos irao correr?");
 	    numeroGrilos=in.nextInt();
-		System.out.println("O numero de participantes sao:" + numeroGrilos);
+		System.out.println("O numero de participantes sao: " + numeroGrilos);
 		
 		
 		System.out.println("Qual a distancia da linha de chegada?");
 	    chegada=in.nextInt();
-		System.out.println("a distancia da chegada e:" + chegada);
+		System.out.println("A distancia da chegada e: " + chegada);
 
 		in.close(); 
-		
-		vencedores = new Grilo[numeroGrilos];
 		
 		semaforo = new Semaforo();
 		Thread t = new Thread(semaforo);
 		t.start();
 		
+		GerenciadorTimes gerenciadorTimes = new GerenciadorTimes();
+		
 		for (int i = 0; i < numeroGrilos; i++) {
-			t = new Thread(new Grilo("Grilo_" + i, this));
+			Grilo g = new Grilo("Grilo_" + i, this);
+			gerenciadorTimes.adicionaGrilo(g);
+			t = new Thread(g);
 			t.start();
 		}
+		
+		times = gerenciadorTimes.finalizarEGetTimes();
 	}
 	
 	public boolean tentarCruzarChegada(Grilo grilo) {
 		if (grilo.getCaminhoPercorrido() >= chegada) {
-			for (int i = 0; i < numeroGrilos; i++) {
-				if (vencedores[i] == null) {
-					vencedores[i] = grilo;
-					System.out.println(grilo.getNome() + " foi o " + (i + 1) + "º colocado com " + grilo.getTotalPulo() + " pulos.");
-					return true;
-				}
-			}	
+			vencedores.add(grilo);
+			int quantiaVencedores = vencedores.size();
+			
+			System.out.println(grilo.getNome() + " foi o " + quantiaVencedores + "º colocado com " + grilo.getTotalPulo() + " pulos.");
+			
+			if (quantiaVencedores == numeroGrilos)
+				finalizarCorrida();
+			
+			return true;
 		}
 		
 		return false;
+	}
+	
+	private void finalizarCorrida() {
+		System.out.println("\nFIM DA CORRIDA!");
+		
+		for (int i = 0; i < times.length; i++) {
+			Time t = times[i];
+			//t.test();
+			System.out.println("[Time " + (i + 1) + "] Total de Pulos: " + t.getTotalPulos() +
+								" | Total de caminho percorrido: " + t.getTotalCaminhoPercorrido());
+		}
+		
+		Grilo vencedor = vencedores.get(0);
+		for (int i = 0; i < times.length; i++) {
+			Time t = times[i];
+			if (vencedor.time == t) {
+				System.out.println("\nO Time " + (i + 1) + " venceu a corrida! | " + vencedor.getNome() + " foi o primeiro colocado!");
+				break;
+			}
+		}
 	}
 	
 	public Semaforo getSemaforo() {

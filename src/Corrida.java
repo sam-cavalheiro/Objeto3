@@ -1,26 +1,42 @@
+import java.util.Scanner;
+
 public class Corrida {
-	public static final int CHEGADA = 30;
-	private static final int NUMERO_GRILOS = 5;
+	public int chegada;
+	private int numeroGrilos;
 	
 	private Semaforo semaforo;
 	private Grilo[] vencedores;
 	
 	public Corrida() {
-		vencedores = new Grilo[NUMERO_GRILOS];
+		
+		Scanner in = new Scanner(System.in);
+	
+		
+		System.out.println("Quantos Grilos irao correr?");
+	    numeroGrilos=in.nextInt();
+		System.out.println("O numero de participantes sao:" + numeroGrilos);
+		
+		
+		System.out.println("Qual a distancia da linha de chegada?");
+	    chegada=in.nextInt();
+		System.out.println("a distancia da chegada e:" + chegada);
+
+		in.close(); 
+		
+		vencedores = new Grilo[numeroGrilos];
 		
 		semaforo = new Semaforo();
 		Thread t = new Thread(semaforo);
 		t.start();
 		
-		for (int i = 0; i < NUMERO_GRILOS; i++) {
+		for (int i = 0; i < numeroGrilos; i++) {
 			new Grilo("Grilo_" + i, this);
 		}
 	}
 	
-	// TODO implementar semáforo nessa lógica
 	public boolean tentarCruzarChegada(Grilo grilo) {
-		if (grilo.getCaminhoPercorrido() >= CHEGADA) {
-			for (int i = 0; i < NUMERO_GRILOS; i++) {
+		if (grilo.getCaminhoPercorrido() >= chegada) {
+			for (int i = 0; i < numeroGrilos; i++) {
 				if (vencedores[i] == null) {
 					vencedores[i] = grilo;
 					System.out.println(grilo.getNome() + " foi o " + (i + 1) + "º colocado com " + grilo.getTotalPulo() + " pulos.");

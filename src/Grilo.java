@@ -27,8 +27,9 @@ public class Grilo implements Runnable {
     
     public void pula() 
     { 	
-    	// TODO Corrigir repetição
-    	
+    	while (!corrida.getSemaforo().podeCorrer()) {		
+    	}
+
     	while (corrida.getSemaforo().podeCorrer()) {
 			int tamanhoPulo = TAMANHO_MINIMO_PULO + random.nextInt(TAMANHO_MAXIMO_PULO - TAMANHO_MINIMO_PULO);
     	

@@ -1,3 +1,5 @@
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Corrida {
@@ -5,6 +7,7 @@ public class Corrida {
 	private int numeroGrilos;
 	
 	private Semaforo semaforo;
+	private List<Time> times = new ArrayList<Time>();
 	private Grilo[] vencedores;
 	
 	public Corrida() {
